@@ -39,8 +39,27 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+function Person(name, age) {
+  let stomach = []
+  this.name = name;
+  this.age = age;
+  this.stomach = stomach;
+}
 
+Person.prototype.eat = function(edible){
+  if(this.stomach.length < 10){
+    this.stomach.push(edible);
+  } else {
+    
+  }
+}
+
+Person.prototype.poop = function(){
+  this.stomach.length = 0;
+}
+
+Person.prototype.toString = function(){
+  return `My name is ${this.name} and my age is ${this.age}`;
 }
 
 /*
@@ -57,9 +76,44 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+function Car(model, milesPerGallon) {
+  let tank = 0;
+  let odometer = 0;
+
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = tank;
+  this.odometer = odometer;
+}
+
+Car.prototype.fill = function(gallons){
+  this.tank += gallons;
+}
+
+Car.prototype.drive = function(distance){
+  let driveableMiles = this.tank * this.milesPerGallon;
+  let fuelConsumption = distance * this.milesPerGallon;
+
+  if (fuelConsumption <= driveableMiles){
+    this.tank -= fuelConsumption;
+    this.odometer += distance;
+  } else {
+    this.tank = 0;
+    this.odometer += driveableMiles;
+
+    return `I ran out of fuel at ${this.odometer}`
+  }
+
+  
+
+  
+ 
+
+  
 
 }
+
+
 
 /*
   TASK 3
@@ -68,18 +122,27 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+function Baby(name, age, favoriteToy) {
+  
+  this.name = name;
+  this.age = age;
+  this.favoriteToy = favoriteToy;
+  
 }
 
+Person.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`;
+}
+
+Baby.prototype = Object.create(Person.prototype); 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. "this" used outside of all objects and functions are binded globally or to all of JS
+  2. when invoked implicitly it will refer to the object to the left of the (.)
+  3. When used in a constructor it refernces the object that is created.
+  4. When used in call or apply method sets this to the called value.
 */
 
 
